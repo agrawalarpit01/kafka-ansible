@@ -1,0 +1,42 @@
+---
+
+- name: REDIS | Check
+  include: check.yml
+  tags:
+    - check
+
+- name: REDIS | Operating System Configure
+  include: kernel.yml
+  tags:
+    - os-tuning
+  when: not redis_is_installed
+
+- name: REDIS | Install
+  include: install.yml
+  tags:
+    - install
+  when: not redis_is_installed
+
+- name: REDIS | Redis_6379
+  include: redis_6379.yml
+  tags:
+    - redis_6379
+  when: not redis_is_installed
+
+- name: REDIS | Redis_16379
+  include: cluster_16379.yml
+  tags:
+    - cluster_16379
+  when: not redis_is_installed
+
+- name: REDIS | Cleanup
+  include: cleanup.yml
+  tags:
+    - cleanup
+  when: not redis_is_installed
+
+- name: REDIS | Backup
+  include: backup.yml
+  tags:
+    - backup
+  when: redis_backup_enabled is defined 

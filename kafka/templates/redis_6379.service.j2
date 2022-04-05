@@ -1,0 +1,26 @@
+[Unit]
+Description=Redis In-Memory Data Store
+After=network.target
+
+[Service]
+Type=forking
+PIDFile={{ redis_confs.pidfile }}
+
+RuntimeDirectory=redis
+
+ReadOnlyDirectories=/
+ReadWriteDirectories=-{{redis_confs.dir}}
+ReadWriteDirectories=-{{redis_log_path}}
+ReadWriteDirectories=-{{redis_pid_path}}
+LimitNOFILE=65535
+User={{ redis_user }}
+Group={{ redis_group }}
+
+ExecStart={{ redis_bin_path }}/redis-server {{redis_conf_path}}/redis_6379.conf
+ExecReload=/bin/kill -USR2 $MAINPID
+ExecStop=/usr/local/bin/redis-cli shutdown
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

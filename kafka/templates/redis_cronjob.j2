@@ -1,0 +1,49 @@
+#!/bin/sh
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+echo "Backup Started"
+#### BEGIN CONFIGURATION ####
+redis_hostname=${REDIS_HOSTNAME:-"localhost"}
+redis_port=${REDIS_PORT:-"6379"}
+
+# set backup directory variables
+bkpdir='/tmp/redis_backup/'
+s3bucket={{redis_s3_bucket}}
+backup_type="redis"
+
+# instance details
+aws_instance_id=`curl 169.254.169.254/latest/meta-data/instance-id`
+region=`curl http://169.254.169.254/latest/dynamic/instance-identity/document|grep region|awk -F\" '{print $4}'`
+ec2_name=$(aws ec2 describe-tags --region $region --filters "Name=resource-id,Values=$aws_instance_id" "Name=key,Values=Name" --output text | cut -f5)
+
+# set dates for backup rotation
+date=$(date +'%Y-%m-%d-%H-%M')
+
+prefix='dump-'
+rdbsuffix='.rdb'
+tarsuffix='.tar.gz'
+newname=$bkpdir$prefix$date$rdbsuffix
+#### END CONFIGURATION ####
+
+# make the temp directory if it doesn't exist
+mkdir -p $bkpdir
+
+# redis dump
+redis-cli \
+  -h "$redis_hostname" \
+  -p "$redis_port" \
+  --rdb "$newname"
+
+#compressing dump
+
+tar -zcvf $bkpdir$prefix$date$tarsuffix $newname
+
+# backup to s3 bucket
+
+aws s3 cp "${newname}" "s3://${s3bucket}/${backup_type}/${ec2_name}/$prefix$date$tarsuffix"
+
+# remove all files in our source directory
+rm -f $bkpdir/*
+
+echo "Backup ended"
