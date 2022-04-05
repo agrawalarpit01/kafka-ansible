@@ -1,0 +1,8 @@
+---
+# tasks file for kafka
+#
+
+- name: mount volume and create user
+  include: vol-mount.yml
+  tags: 
+   - vol-mount
