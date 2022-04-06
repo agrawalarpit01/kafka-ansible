@@ -1,0 +1,5 @@
+---
+- name: kafka
+  include: kafka-install.yml
+  tags:
+    - kafka_install

@@ -1,6 +1,5 @@
 ---
-
-- name: restart redis
+- name: restart kafka
   service:
-    name: redis_6379
+    name: kafka
     state: restarted

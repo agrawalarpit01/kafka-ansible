@@ -124,15 +124,13 @@
 #    line: "{{ zookeeper-connect }}"
 #  when: check.found == 0
 
-- name: Update kafka config and properties
+- name: Update kafka server property
   template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mode }}"
-    owner: "{{ item.user }}"
-    group: "{{ item.group }}"
-  with_items:
-    - "{{ templates }}"
+    src: server.properties.j2
+    dest: /opt/kafka/config/server.properties
+    mode: 0644
+    owner: "{{ kafka_user }}"
+    group: "{{ kafka_user }}"
 
 - name: start kafka service
   service:
