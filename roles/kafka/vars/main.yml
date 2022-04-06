@@ -16,33 +16,33 @@ file_transfer:
    - {
         src: kafka.yml,
         dest: /opt/jmx-exporter/kafka.yml,
-        mode: 0644,
+        mode: 644,
         user: root,
         group: root,
      }
    - {
         src: jmx-exporter.jar,
         dest: /opt/jmx-exporter/jmx-exporter.jar,
-        mode: 0644,
+        mode: 644,
         user: root,
         group: root,
      }
    - {
         src: kafka.service,
         dest: /etc/systemd/system/kafka.service,
-        mode: 0644,
+        mode: 644,
         user: root,
         group: root,
      }
    - {
         src: kafka-server-start.sh,
         dest: /opt/kafka/bin/kafka-server-start.sh,
-        mode: 0644,
+        mode: 644,
         user: root,
         group: root,
      }
 
 kafka_dir:
-   - { dir: /opt/kafka, mode: 0755, user: kafka, group: kafka }
-   - { src: /vol/kafka, mode: 0755, user: kafka, group: kafka }
-   - { src: /opt/jmx-exporter, mode: 0755, user: root, group: root }
+   - { dir: /opt/kafka, mode: 755, user: kafka, group: kafka }
+   - { src: /vol/kafka, mode: 755, user: kafka, group: kafka }
+   - { src: /opt/jmx-exporter, mode: 755, user: root, group: root }
