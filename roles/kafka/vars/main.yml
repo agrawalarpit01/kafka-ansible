@@ -7,10 +7,10 @@ kafka_download_dir: "/opt/kafka"
 kafka_url_src: "https://archive.apache.org/dist/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz"
 kafka_url_dest: "/opt/"
 
-kafka_service_src: "kafka.service.j2"
-kafka_prod_service_src: "kafkaprod.service.j2"
-kafka_service_dest: "/etc/systemd/system/kafka.service"
-kafka_service: "kafka"
+#kafka_service_src: "kafka.service.j2"
+#kafka_prod_service_src: "kafkaprod.service.j2"
+#kafka_service_dest: "/etc/systemd/system/kafka.service"
+#kafka_service: "kafka"
 
 file_transfer:
    - {
@@ -42,7 +42,7 @@ file_transfer:
         group: root,
      }
 
-kafka-dir:
+kafka_dir:
    - { dir: /opt/kafka, mode: 0755, user: kafka, group: kafka }
    - { src: /vol/kafka, mode: 0755, user: kafka, group: kafka }
    - { src: /opt/jmx-exporter, mode: 0755, user: root, group: root }
