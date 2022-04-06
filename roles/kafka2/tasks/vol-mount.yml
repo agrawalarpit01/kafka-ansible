@@ -1,5 +1,5 @@
 ---
-- name: Creating user kafka
+- name: Creating group kafka
   group:
     name: "{{ kafka_user }}"
     state: present
