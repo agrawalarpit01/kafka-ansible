@@ -74,6 +74,14 @@
   tags:
     - kafka_install
 
+- name: link kafka download dir
+  file:
+    src: /opt/kafka_*
+    dest: /opt/kafka
+    owner: "{{ kafka_user }}"
+    group: "{{ kafka_user }}"
+    state: link
+
 - name: move files to the destination
   copy:
     src: "{{ item.src }}"
