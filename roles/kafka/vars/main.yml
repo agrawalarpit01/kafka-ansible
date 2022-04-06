@@ -34,13 +34,6 @@ file_transfer:
         user: root,
         group: root,
      }
-   - {
-        src: kafka-server-start.sh,
-        dest: /opt/kafka/bin/kafka-server-start.sh,
-        mode: 644,
-        user: root,
-        group: root,
-     }
 
 kafka_dir:
    #  - { dir: /opt/kafka, mode: 755, user: kafka, group: kafka }
