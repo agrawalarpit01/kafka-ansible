@@ -49,7 +49,7 @@
     state: directory
     mode: "{{ item.mode }}"
     owner: "{{ item.user }}"
-    grouo: "{{ item.group }}"
+    group: "{{ item.group }}"
   with_items:
     - kafka-dir
   tags:
@@ -80,7 +80,7 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
     owner: "{{ item.user }}"
-    grouo: "{{ item.group }}"
+    group: "{{ item.group }}"
   with_items:
     - file_transfer
 
