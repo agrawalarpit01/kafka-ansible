@@ -1,0 +1,14 @@
+---
+- name: Install SSM deb package
+  yum:
+    name: "{{ ssm_agent_dnl_dir }}/amazon-ssm-agent.deb"
+    state: installed
+  notify: systemctl_handler
+  when: ansible_facts.distribution == 'Ubuntu' or ansible_facts.distribution == 'Debian'
+
+- name: Install SSM rpm package
+  yum:
+    name: "{{ ssm_agent_dnl_dir }}/amazon-ssm-agent.rpm"
+    state: installed
+  notify: systemctl_handler
+  when: ansible_facts.distribution == 'Amazon' or ansible_facts.distribution == 'CentOS'

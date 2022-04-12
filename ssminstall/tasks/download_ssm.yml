@@ -1,0 +1,44 @@
+---
+- name: Download the SSM deb package for AMD
+  get_url:
+    dest: "{{ ssm_agent_dnl_dir }}"
+    group: root
+    owner: root
+    mode: 0660
+    url: "{{ ssm_agent_pkg_url }}/debian_amd64/amazon-ssm-agent.deb"
+  when:
+    (ansible_facts.architecture == 'x86_64' and ansible_facts.distribution == 'Ubuntu' ) or
+    (ansible_facts.architecture == 'x86_64' and ansible_facts.distribution == 'Debian' )
+
+- name: Download the SSM deb package for ARM
+  get_url:
+    dest: "{{ ssm_agent_dnl_dir }}"
+    group: root
+    owner: root
+    mode: 0660
+    url: "{{ ssm_agent_pkg_url }}/debian_arm64/amazon-ssm-agent.deb"
+  when:
+    (ansible_facts.architecture == 'aarch64' and ansible_facts.distribution == 'Ubuntu' ) or
+    (ansible_facts.architecture == 'aarch64' and ansible_facts.distribution == 'Debian' )
+
+- name: Download the SSM RPM package for AMD
+  get_url:
+    dest: "{{ ssm_agent_dnl_dir }}"
+    group: root
+    owner: root
+    mode: 0660
+    url: "{{ ssm_agent_pkg_url }}/linux_amd64/amazon-ssm-agent.rpm"
+  when:
+    (ansible_facts.architecture == 'x86_64' and ansible_facts.distribution == 'Amazon') or
+    (ansible_facts.architecture == 'x86_64' and ansible_facts.distribution == 'CentOS' )
+
+- name: Download the SSM RPM package for ARM
+  get_url:
+    dest: "{{ ssm_agent_dnl_dir }}"
+    group: root
+    owner: root
+    mode: 0660
+    url: "{{ ssm_agent_pkg_url }}/linux_arm64/amazon-ssm-agent.rpm"
+  when:
+    (ansible_facts.architecture == 'aarch64' and ansible_facts.distribution == 'Amazon') or
+    (ansible_facts.architecture == 'aarch64' and ansible_facts.distribution == 'CentOS' )

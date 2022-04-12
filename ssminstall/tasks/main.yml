@@ -1,6 +1,4 @@
 ---
-
-
 # Populate Systems Packages Facts
 - name: Populate Systems Packages Facts
   package_facts:
@@ -15,13 +13,8 @@
     var: ansible_facts.distribution and ansible_facts.architecture
     #    var: ansible_distribution_major_version|int
 
+- name: Download SSM agent package
+  include: download_ssm.yml
 
-
-#- name: Include architecture specific
-#  include: "{{ ansible_architecture }}.yml"
-
-#- name: Include for centos 7
-#  include: install_centos_7.yml
-#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
-
-
+- name: Install SSM Agent
+  include: install_ssm.yml
