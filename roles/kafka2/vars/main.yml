@@ -1,8 +1,0 @@
----
-# vars file for kafkaql
-kafka_user: "kafka"
-
-mount_path:
-   - { path: /vol, src: "/dev/{{device_secondary_partition}}" }
-
-device_secondary_partition: "nvme1n1"
