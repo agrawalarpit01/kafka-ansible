@@ -16,5 +16,5 @@
 - name: Download SSM agent package
   include: download_ssm.yml
 
-- name: Install SSM Agent
-  include: install_ssm.yml
+# - name: Install SSM Agent
+#   include: install_ssm.yml
